@@ -10,6 +10,7 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 
 public class FileSplitterCrypto extends FileSplitterByDimension {
 
@@ -43,12 +44,19 @@ public class FileSplitterCrypto extends FileSplitterByDimension {
 		SecretKey key = keyGen.generateKey();
 		String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
 		System.out.println("Decoded Key: " + key);
+		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
 		bufferedPartitionLog.write(encodedKey);
 		bufferedPartitionLog.write(System.lineSeparator());
-
-		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 		cipher.init(Cipher.ENCRYPT_MODE, key);
+
+		// Get initialization vector for later usage in decription process.
+		IvParameterSpec spec = cipher.getParameters().getParameterSpec(IvParameterSpec.class);
+		byte[] iv = spec.getIV();
+
+		String base64iv = Base64.getEncoder().encodeToString(iv);
+		bufferedPartitionLog.write(base64iv);
+		bufferedPartitionLog.write(System.lineSeparator());
 
 		for (int part = 1; part <= howManyParts; part++) {
 

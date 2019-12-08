@@ -9,6 +9,7 @@ import java.util.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class FileStitcherCrypto extends FileStitcherCore {
@@ -49,7 +50,15 @@ public class FileStitcherCrypto extends FileStitcherCore {
 
 		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding"); // Transformation of the algorithm
 
-		cipher.init(Cipher.DECRYPT_MODE, key, cipher.getParameters());
+		// initialization vector
+		String ivStringBase64 = reader.readLine();
+		byte[] iv = Base64.getDecoder().decode(ivStringBase64);
+
+		IvParameterSpec ivspec = new IvParameterSpec(iv);
+
+		cipher.init(Cipher.DECRYPT_MODE, key, ivspec);
+
+		System.out.printf("Tipo Partizione:%s \n", partitionType);
 
 		String cryptedFileName;
 
