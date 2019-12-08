@@ -43,6 +43,7 @@ public class FileStitcherButton extends JButton implements ActionListener {
 						.newInstance(this.controller.outputDirChooser.chosenDir.getPath());
 
 				this.fileStitcherCore.stitchFile(file);
+				reader.close();
 			}
 
 		} catch (Exception exception) {

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum SplitModalityEnum {
 	EQUAL_DIM("Dimensione Uguale Per Ogni Parte", "Dimensione:", FileSplitterByDimension.class, FileStitcherCore.class),
 	ENCRYPTED_EQUAL_DIM("Dimensione Uguale Per Ogni Parte + Crittografia", "Dimensione:", FileSplitterCrypto.class,
-			FileStitcherCore.class),
+			FileStitcherCrypto.class),
 	COMPRESSED_EQUAL_DIM("Dimensione Uguale Per Ogni Parte + Compressione", "Dimensione:", FileSplitterCompressed.class,
 			FileStitcherCompressed.class),
 	NUMBER_OF_PARTS("Specifico Numero Di Parti", "       N° Parti:", FileSplitterCore.class, FileStitcherCore.class);

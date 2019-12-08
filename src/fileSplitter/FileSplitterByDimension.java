@@ -10,6 +10,6 @@ public class FileSplitterByDimension extends FileSplitterCore {
 
 	@Override
 	void splitFile(File file, int dimensionOfEachPart) throws Exception {
-		super.splitFile(file, (int) Math.ceil(file.length() / (dimensionOfEachPart * 1000)));
+		super.splitFile(file, (int) Math.ceil(file.length() / (dimensionOfEachPart)));
 	}
 }

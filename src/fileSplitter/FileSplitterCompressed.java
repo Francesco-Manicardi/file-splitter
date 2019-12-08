@@ -9,8 +9,11 @@ import java.util.zip.ZipOutputStream;
 
 public class FileSplitterCompressed extends FileSplitterCore {
 
+	int dimensionPerPart;
+
 	FileSplitterCompressed(String o, int r) {
-		super(o, r);
+		super(o, 0);
+		this.dimensionPerPart = r;
 	}
 
 	@Override
@@ -19,12 +22,12 @@ public class FileSplitterCompressed extends FileSplitterCore {
 			throw new Exception("Lista Vuota!");
 
 		for (File file : files) {
-			splitFile(file, inputParam);
+			splitFile(file, dimensionPerPart);
 		}
 	}
 
 	@Override
-	void splitFile(File file, int howManyParts) throws Exception {
+	void splitFile(File file, int bytesPerPart) throws Exception {
 		System.out.printf("Splitting file %s\n", file.getPath());
 
 		if (file.length() == 0) {
@@ -32,7 +35,7 @@ public class FileSplitterCompressed extends FileSplitterCore {
 
 		}
 
-		long bytesPerPart = Math.floorDiv(file.length(), howManyParts);
+		int howManyParts = (int) (file.length() / bytesPerPart);
 		int leftOverBytes = (int) (file.length() - (bytesPerPart * howManyParts));
 
 		FileInputStream fileInputStream = new FileInputStream(file);
