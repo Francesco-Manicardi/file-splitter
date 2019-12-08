@@ -6,14 +6,29 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
+/**
+ * The Standard FileStitcher Class.
+ */
 public class FileStitcherCore {
 
+	/** The base output path. */
 	String outPath;
 
+	/**
+	 * Instantiates a new standard file stitcher (no compression and no encription).
+	 *
+	 * @param outPath the base output path
+	 */
 	FileStitcherCore(String outPath) {
 		this.outPath = outPath;
 	}
 
+	/**
+	 * Stitch a single file.
+	 *
+	 * @param file the control file for the stitching process.
+	 * @throws Exception when the file is empty or something goes wrong during IO.
+	 */
 	void stitchFile(File file) throws Exception {
 		System.out.printf("Stitching with control file %s\n", file.getPath());
 
@@ -50,8 +65,11 @@ public class FileStitcherCore {
 	}
 
 	/**
+	 * Gets the extension.
+	 *
 	 * @param file - Il File di cui vogliamo estrarre l'estensione. Gestisce anche
 	 *             path con '.' nel nome.
+	 * @return the extension
 	 * @throws Exception Se non riusciamo a estrarre l'estensione.
 	 */
 	protected String getExtension(File file) throws Exception {
@@ -67,6 +85,14 @@ public class FileStitcherCore {
 		}
 	}
 
+	/**
+	 * Gets the output path for stitched file given the control file.
+	 *
+	 * @param file the control file
+	 * @return the output path for the stitched file
+	 * @throws Exception when we can't build the output path because we fail to
+	 *                   parse the control file name
+	 */
 	protected String getOutputPath(File file) throws Exception {
 		String str = file.getName();
 

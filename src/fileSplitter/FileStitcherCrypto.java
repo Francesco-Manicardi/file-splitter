@@ -12,25 +12,40 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * The Class FileStitcher for encrypted parts.
+ */
 public class FileStitcherCrypto extends FileStitcherCore {
 
+	/**
+	 * Instantiates a new file stitcher with encrypted parts.
+	 *
+	 * @param outPath the out path
+	 */
 	public FileStitcherCrypto(String outPath) {
 		super(outPath);
 	}
 
+	/**
+	 * Stitch a file by using the key and the initialization vector stored in the
+	 * control file.
+	 *
+	 * @param file the control file
+	 * @throws Exception when file is empty or when something goes wrong during IO.
+	 */
 	@Override
 	void stitchFile(File file) throws Exception {
 		System.out.printf("Stitching with control file %s\n", file.getPath());
 
 		if (file.length() == 0) {
 			throw new Exception("Il file " + file.getPath() + " è vuoto!");
-
 		}
+
 		System.out.printf("estensione file: %s\n", getExtension(file));
+
 		if (!getExtension(file).equals("partitioninfo")) {
 			throw new Exception("Il file " + file.getPath()
 					+ " non è un file partitioninfo! Seleziona solo file partitioninfo per ricomporre.");
-
 		}
 
 		FileOutputStream fileOutputStream = new FileOutputStream(getOutputPath(file));

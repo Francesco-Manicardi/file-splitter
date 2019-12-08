@@ -9,11 +9,22 @@ import java.io.FileReader;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+/**
+ * The FileStitcherButton Class.
+ */
 public class FileStitcherButton extends JButton implements ActionListener {
 
+	/** The originating controller. */
 	private Controller controller;
+
+	/** The file stitcher or any of its descendants (classes that extend it). */
 	private FileStitcherCore fileStitcherCore;
 
+	/**
+	 * Instantiates a new file stitcher button.
+	 *
+	 * @param controller the originating controller
+	 */
 	public FileStitcherButton(Controller controller) {
 		this.setBounds(20, 20, 100, 30);
 		this.setText("Ricomponi File");
@@ -22,6 +33,12 @@ public class FileStitcherButton extends JButton implements ActionListener {
 
 	}
 
+	/**
+	 * Event handler called on click of the button. Stitches the files and prints
+	 * any exceptions to the user in a message box.
+	 *
+	 * @param e the event. Currently unused.
+	 */
 	@Override
 
 	public void actionPerformed(ActionEvent e) {

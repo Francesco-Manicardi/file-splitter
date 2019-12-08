@@ -5,16 +5,37 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 
+/**
+ * The Main FileSplitter class from which all others descend (meaning they
+ * extend this class).
+ */
 public class FileSplitterCore {
 
+	/** The output path for the split parts. */
 	String outPath;
+
+	/** The input param (in this case, it's the number of requested parts). */
 	int inputParam;
 
+	/**
+	 * Instantiates a new basic file splitter.
+	 *
+	 * @param outPath        the output path in which file parts should be placed
+	 * @param requestedParts the requested amount of parts. Note that this <b>can be
+	 *                       different from the actual amount of parts</b> (because
+	 *                       there could be some leftover bytes)
+	 */
 	FileSplitterCore(String outPath, int requestedParts) {
 		this.outPath = outPath;
 		this.inputParam = requestedParts;
 	}
 
+	/**
+	 * Split the files.
+	 *
+	 * @param files the files to be split
+	 * @throws Exception when the files array is empty.
+	 */
 	void splitFiles(File[] files) throws Exception {
 		if (files == null || files.length == 0)
 			throw new Exception("Lista Vuota!");
@@ -24,6 +45,14 @@ public class FileSplitterCore {
 		}
 	}
 
+	/**
+	 * Split a single file.
+	 *
+	 * @param file         the file to be split.
+	 * @param howManyParts the desired amount of parts resulting from the split.
+	 * @throws Exception when the file is empty or something goes wrong during the
+	 *                   IO processes
+	 */
 	void splitFile(File file, int howManyParts) throws Exception {
 		System.out.printf("Splitting file %s\n", file.getPath());
 
@@ -38,7 +67,7 @@ public class FileSplitterCore {
 		FileInputStream fileInputStream = new FileInputStream(file);
 		FileWriter bufferedPartitionLog = new FileWriter(this.outPath + "/" + file.getName() + ".partitioninfo");
 
-		bufferedPartitionLog.write(SplitModalityEnum.getFromClass(this.getClass()).name());
+		bufferedPartitionLog.write(SplitModalityEnum.getSplitModalityFromSplitterClass(this.getClass()).name());
 		bufferedPartitionLog.write(System.lineSeparator());
 
 		for (int part = 1; part <= howManyParts; part++) {
@@ -83,6 +112,12 @@ public class FileSplitterCore {
 		bufferedPartitionLog.close();
 	}
 
+	/**
+	 * Gets the output path for a splitting process.
+	 *
+	 * @param file the file being split.
+	 * @return the output path where the split parts should end up.
+	 */
 	protected String getOutputPath(File file) {
 		return outPath + '/' + file.getName();
 	}

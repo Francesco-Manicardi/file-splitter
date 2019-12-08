@@ -12,13 +12,32 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
+/**
+ * This class splits files and crypts them using AES algorithm with padding and
+ * CBC (instead of EBC). EBC encrypts the blocks indipendently from each other,
+ * while CBC uses XOR to make the encription more secure.
+ */
 public class FileSplitterCrypto extends FileSplitterByDimension {
 
-	public FileSplitterCrypto(String outPath, int requestedParts) {
-		super(outPath, requestedParts);
+	/**
+	 * Instantiates a new file splitter with included cryptography.
+	 *
+	 * @param outPath             the output path in which split and crypted parts
+	 *                            will end up
+	 * @param dimensionOfEachPart the dimension of each split part.
+	 */
+	public FileSplitterCrypto(String outPath, int dimensionOfEachPart) {
+		super(outPath, dimensionOfEachPart);
 
 	}
 
+	/**
+	 * Split and crypt a file. Stores secret key and IV as base64 in the log file.
+	 *
+	 * @param file                the file to split and crypt.
+	 * @param dimensionOfEachPart the dimension of each encrypted part
+	 * @throws Exception when file is empty or something goes wrong during IO.
+	 */
 	@Override
 	void splitFile(File file, int dimensionOfEachPart) throws Exception {
 
@@ -35,7 +54,7 @@ public class FileSplitterCrypto extends FileSplitterByDimension {
 		FileInputStream fileInputStream = new FileInputStream(file);
 		FileWriter bufferedPartitionLog = new FileWriter(this.outPath + "/" + file.getName() + ".partitioninfo");
 
-		bufferedPartitionLog.write(SplitModalityEnum.getFromClass(this.getClass()).name());
+		bufferedPartitionLog.write(SplitModalityEnum.getSplitModalityFromSplitterClass(this.getClass()).name());
 		bufferedPartitionLog.write(System.lineSeparator());
 
 		// Generate the key

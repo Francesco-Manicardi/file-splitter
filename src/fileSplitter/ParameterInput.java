@@ -8,12 +8,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.PlainDocument;
 
+/**
+ * The Parameter Input Text Field. We use it filtered by OnlyPositiveIntegers.
+ */
 public class ParameterInput extends JPanel {
 
+	/** The originating controller. */
 	private Controller controller;
+
+	/** The input text field. */
 	private JTextField input;
+
+	/** The label for the text field. */
 	private JLabel label;
 
+	/**
+	 * Instantiates a new parameter input text field.
+	 *
+	 * @param controller the originating controller
+	 */
 	public ParameterInput(Controller controller) {
 		setLayout(new FlowLayout());
 
@@ -31,6 +44,9 @@ public class ParameterInput extends JPanel {
 
 	}
 
+	/**
+	 * Update the input label based on a chosen split mode.
+	 */
 	public void updateLabel() {
 		SplitModalityEnum selectedSplitModality = Enum.valueOf(SplitModalityEnum.class,
 				this.controller.splitModalityChooser.selected);
@@ -39,13 +55,17 @@ public class ParameterInput extends JPanel {
 
 	}
 
+	/**
+	 * Get the input value.
+	 *
+	 * @return the input value
+	 */
 	public int getInputValue() {
 		try {
 			return Integer.parseInt(this.input.getText());
 		} catch (NumberFormatException e) {
-			// Poichè l'input è validato, l'unico caso in cui si verifica questa eccezione è
-			// se l'input è vuoto. Quindi ritorno 1 come "default".
-			// Non ritorno 0 perchè sarebbe equivalente a eliminare il file.
+			// This exception is only thrown when the input is empty, since the field is
+			// validated. as a fallback, we return 1.
 			return 1;
 		}
 	}

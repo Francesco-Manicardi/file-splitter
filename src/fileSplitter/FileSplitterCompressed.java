@@ -7,25 +7,31 @@ import java.io.FileWriter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * The File Splitter that also compresses the split parts.
+ */
 public class FileSplitterCompressed extends FileSplitterCore {
 
-	int dimensionPerPart;
-
+	/**
+	 * Instantiates a new file splitter (that also compresses).
+	 *
+	 * @param o the output path
+	 * @param r Originally this was the superclass requested amount of parts, but
+	 *          here this parameter is used as the size of each split part file.
+	 */
 	FileSplitterCompressed(String o, int r) {
-		super(o, 0);
-		this.dimensionPerPart = r;
+		super(o, r);
 	}
 
-	@Override
-	void splitFiles(File[] files) throws Exception {
-		if (files == null || files.length == 0)
-			throw new Exception("Lista Vuota!");
-
-		for (File file : files) {
-			splitFile(file, dimensionPerPart);
-		}
-	}
-
+	/**
+	 * Split the file and compress the resulting parts.
+	 *
+	 * @param file         the file to split and compress.
+	 * @param bytesPerPart the amount bytes for each split part (not taking into
+	 *                     account the compression)
+	 * @throws Exception exceptions such as empty file, or failure to parse the file
+	 *                   name / extension
+	 */
 	@Override
 	void splitFile(File file, int bytesPerPart) throws Exception {
 		System.out.printf("Splitting file %s\n", file.getPath());
@@ -41,7 +47,7 @@ public class FileSplitterCompressed extends FileSplitterCore {
 		FileInputStream fileInputStream = new FileInputStream(file);
 		FileWriter bufferedPartitionLog = new FileWriter(this.outPath + "/" + file.getName() + ".partitioninfo");
 
-		bufferedPartitionLog.write(SplitModalityEnum.getFromClass(this.getClass()).name());
+		bufferedPartitionLog.write(SplitModalityEnum.getSplitModalityFromSplitterClass(this.getClass()).name());
 		bufferedPartitionLog.write(System.lineSeparator());
 		bufferedPartitionLog.write(file.getName() + ".zip");
 		bufferedPartitionLog.write(System.lineSeparator());
@@ -88,8 +94,4 @@ public class FileSplitterCompressed extends FileSplitterCore {
 		bufferedPartitionLog.close();
 	}
 
-	@Override
-	protected String getOutputPath(File file) {
-		return outPath + '/' + file.getName();
-	}
 }
