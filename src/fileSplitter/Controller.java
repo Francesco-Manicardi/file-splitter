@@ -1,52 +1,79 @@
 package fileSplitter;
 
-import java.awt.Dimension;
-import java.io.File;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneLayout;
+import javax.swing.border.EmptyBorder;
 
 public class Controller {
 
 	Window window;
 	JSplitPane splitPane;
 	FileManagerButton fileManagerButton;
+	ClearListButton clearListButton;
+	FileSplitterButton fileSplitterButton;
+	FileStitcherButton fileStitcherButton;
 
-	fileListDisplayer fileListDisplayer;
+	FileListDisplayer fileListDisplayer;
+	SplitModalityChooser splitModalityChooser;
+	ParameterInput parameterInput;
+	OutputDirChooser outputDirChooser;
 
-	
+	JPanel leftView, rightView;
+
 	public Controller(Window window) {
 		this.window = window;
 
 		splitPane = new JSplitPane();
-		
-		this.fileManagerButton = new FileManagerButton(this);
-		
-		JPanel leftView = new JPanel();
-		leftView.add(this.fileManagerButton);
-		this.splitPane.setLeftComponent(leftView);
 
-		this.fileListDisplayer = new fileSplitter.fileListDisplayer(this);
-		
-		this.splitPane.setRightComponent(this.fileListDisplayer.listScrollPane);
-		
-		this.splitPane.setResizeWeight(0.5); 
+		leftView = new JPanel();
+		leftView.setLayout(new BoxLayout(leftView, BoxLayout.Y_AXIS));
 
-		this.window.frame.add(splitPane);
+		leftView.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+		fileManagerButton = new FileManagerButton(this);
+		clearListButton = new ClearListButton(this);
+		fileSplitterButton = new FileSplitterButton(this);
+		fileStitcherButton = new FileStitcherButton(this);
+		splitModalityChooser = new SplitModalityChooser(this);
+		parameterInput = new ParameterInput(this);
+
+		leftView.add(fileManagerButton);
+		leftView.add(Box.createVerticalStrut(20));
+		leftView.add(clearListButton);
+		leftView.add(Box.createVerticalStrut(20));
+		leftView.add(fileSplitterButton);
+		leftView.add(Box.createVerticalStrut(20));
+		leftView.add(fileStitcherButton);
+		leftView.add(Box.createVerticalStrut(20));
+		leftView.add(splitModalityChooser);
+		leftView.add(Box.createVerticalStrut(20));
+		leftView.add(parameterInput);
+		leftView.add(Box.createVerticalStrut(20));
+
+		splitPane.setLeftComponent(leftView);
+
+		rightView = new JPanel();
+
+		fileListDisplayer = new FileListDisplayer(this);
+		rightView.add(fileListDisplayer);
+
+		outputDirChooser = new OutputDirChooser();
+		rightView.add(outputDirChooser);
+
+		splitPane.setRightComponent(rightView);
+
+		splitPane.setResizeWeight(0.5);
+
+		window.frame.add(splitPane);
 
 	}
 
 	public void afterChoseFiles() {
 
 		this.fileListDisplayer.updateListing();
-		
+
 	}
-	
 
 }

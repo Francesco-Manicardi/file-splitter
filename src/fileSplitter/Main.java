@@ -9,6 +9,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Window window = new Window();
@@ -20,6 +21,5 @@ public class Main {
 			}
 		});
 	}
-
 
 }

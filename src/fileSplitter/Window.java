@@ -1,6 +1,5 @@
 package fileSplitter;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Window {
@@ -18,8 +17,8 @@ public class Window {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame = new JFrame("File Splitter & Stitcher");
+		frame.setBounds(100, 100, 750, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
