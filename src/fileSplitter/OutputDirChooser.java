@@ -17,19 +17,19 @@ import javax.swing.JPanel;
 public class OutputDirChooser extends JPanel implements ActionListener {
 
 	/** The title of the component. */
-	protected JLabel title;
+	private JLabel title;
 
 	/** The button you click to choose the directory. */
-	protected JButton chooseDirButton;
+	private JButton chooseDirButton;
 
 	/** The label that displays the path you selected.. */
-	protected JLabel output;
+	private JLabel output;
 
 	/** The actual path chooser. */
-	protected JFileChooser chooser;
+	private JFileChooser chooser;
 
 	/** The chosen directory. */
-	protected File chosenDir;
+	private File chosenDir;
 
 	/**
 	 * Instantiates a new output directory chooser by creating the title label, the
@@ -47,7 +47,7 @@ public class OutputDirChooser extends JPanel implements ActionListener {
 
 		chooser = new JFileChooser();
 		this.chosenDir = this.chooser.getCurrentDirectory();
-		output.setText(this.chosenDir.getPath());
+		output.setText(this.getChosenDir().getPath());
 
 	}
 
@@ -67,10 +67,17 @@ public class OutputDirChooser extends JPanel implements ActionListener {
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 
 			this.chosenDir = chooser.getSelectedFile();
-			output.setText(this.chosenDir.getPath());
-		} else {
-			System.out.println("No Selection ");
+			output.setText(this.getChosenDir().getPath());
 		}
+	}
+
+	/**
+	 * Just a simple getter
+	 * 
+	 * @return the chosen directory
+	 */
+	public File getChosenDir() {
+		return chosenDir;
 	}
 
 }

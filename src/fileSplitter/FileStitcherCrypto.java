@@ -15,7 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * The Class FileStitcher for encrypted parts.
  */
-public class FileStitcherCrypto extends FileStitcherCore {
+public class FileStitcherCrypto extends FileStitcher {
 
 	/**
 	 * Instantiates a new file stitcher with encrypted parts.
@@ -81,7 +81,7 @@ public class FileStitcherCrypto extends FileStitcherCore {
 			System.out.println("Decrypting " + cryptedFileName);
 
 			FileInputStream cryptedFileReader = new FileInputStream(
-					file.getAbsoluteFile().getParent() + "\\" + cryptedFileName);
+					file.getAbsoluteFile().getParent() + File.separator + cryptedFileName);
 			byte[] byteBuffer = new byte[160];
 			while (cryptedFileReader.read(byteBuffer) > 0) {
 				fileOutputStream.write(cipher.update(byteBuffer));

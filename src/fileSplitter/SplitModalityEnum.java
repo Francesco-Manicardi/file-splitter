@@ -13,7 +13,7 @@ public enum SplitModalityEnum {
 	 * The mode where the user has to input the part size, which is equal for all
 	 * files.
 	 */
-	EQUAL_DIM("Dimensione Uguale Per Ogni Parte", "Dimensione:", FileSplitterByDimension.class, FileStitcherCore.class),
+	EQUAL_DIM("Dimensione Uguale Per Ogni Parte", "Dimensione:", FileSplitterByDimension.class, FileStitcher.class),
 
 	/**
 	 * The mode where the user has to input the part size, which is equal for all
@@ -33,22 +33,22 @@ public enum SplitModalityEnum {
 	 * The mode where the user has to input the number of parts.
 	 */
 
-	NUMBER_OF_PARTS("Specifico Numero Di Parti", "       N° Parti:", FileSplitterCore.class, FileStitcherCore.class);
+	NUMBER_OF_PARTS("Specifico Numero Di Parti", "       N° Parti:", FileSplitterCore.class, FileStitcher.class);
 
 	/**
 	 * A string that is shown to the user when he selects a modality so that he
 	 * knows what he has to input.
 	 */
-	protected String hint;
+	private String hint;
 
 	/** The description of the split modality. */
-	protected String description;
+	private String description;
 
 	/** The appropriate splitter class for the split modality. */
-	protected Class<? extends FileSplitterCore> splitterClass;
+	private Class<? extends FileSplitterCore> splitterClass;
 
 	/** The appropriate stitcher class for stitching files back together. */
-	protected Class<? extends FileStitcherCore> stitcherClass;
+	private Class<? extends FileStitcher> stitcherClass;
 
 	/**
 	 * Instantiates a new split modality enum.
@@ -59,7 +59,7 @@ public enum SplitModalityEnum {
 	 * @param stitcherC the stitcher Class
 	 */
 	SplitModalityEnum(String d, String h, Class<? extends FileSplitterCore> splitterC,
-			Class<? extends FileStitcherCore> stitcherC) {
+			Class<? extends FileStitcher> stitcherC) {
 		description = d;
 		hint = h;
 		splitterClass = splitterC;
@@ -74,7 +74,43 @@ public enum SplitModalityEnum {
 	 *         splitter class.
 	 */
 	public static SplitModalityEnum getSplitModalityFromSplitterClass(Class<? extends FileSplitterCore> c) {
-		return Arrays.stream(values()).filter(e -> e.splitterClass.equals(c)).findFirst().orElse(null);
+		return Arrays.stream(values()).filter(e -> e.getSplitterClass().equals(c)).findFirst().orElse(null);
+	}
+
+	/**
+	 * A simple getter
+	 * 
+	 * @return the splitterClass
+	 */
+	public Class<? extends FileSplitterCore> getSplitterClass() {
+		return splitterClass;
+	}
+
+	/**
+	 * A simple getter
+	 * 
+	 * @return the stitcherClass
+	 */
+	public Class<? extends FileStitcher> getStitcherClass() {
+		return stitcherClass;
+	}
+
+	/**
+	 * A simple getter
+	 * 
+	 * @return the hint
+	 */
+	public String getHint() {
+		return hint;
+	}
+
+	/**
+	 * A simple getter
+	 * 
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
 	}
 
 }

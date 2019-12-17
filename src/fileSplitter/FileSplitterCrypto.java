@@ -20,7 +20,7 @@ import javax.crypto.spec.IvParameterSpec;
 public class FileSplitterCrypto extends FileSplitterByDimension {
 
 	/**
-	 * Instantiates a new file splitter with included cryptography.
+	 * Instantiates a new file splitter with cryptography functionality.
 	 *
 	 * @param outPath             the output path in which split and crypted parts
 	 *                            will end up
@@ -32,7 +32,8 @@ public class FileSplitterCrypto extends FileSplitterByDimension {
 	}
 
 	/**
-	 * Split and crypt a file. Stores secret key and IV as base64 in the log file.
+	 * Split and crypt a file. Stores secret key and IV in base64 encoding in the
+	 * .partitioninfo file.
 	 *
 	 * @param file                the file to split and crypt.
 	 * @param dimensionOfEachPart the dimension of each encrypted part
@@ -83,7 +84,7 @@ public class FileSplitterCrypto extends FileSplitterByDimension {
 			System.out.printf("\t Writing partition %s\n", outputPath);
 
 			BufferedOutputStream bufferedOutput = new BufferedOutputStream(
-					new FileOutputStream(this.outPath + "\\" + file.getName() + "." + part + ".split"));
+					new FileOutputStream(this.outPath + File.separator + file.getName() + "." + part + ".split"));
 			bufferedPartitionLog.write(file.getName() + "." + part + ".split");
 			bufferedPartitionLog.write(System.lineSeparator());
 			byte[] readBytes = new byte[160];
@@ -97,8 +98,8 @@ public class FileSplitterCrypto extends FileSplitterByDimension {
 			bufferedOutput.close();
 		}
 		if (leftOverBytes > 0) {
-			BufferedOutputStream bufferedOutput = new BufferedOutputStream(
-					new FileOutputStream(this.outPath + "\\" + file.getName() + "." + (howManyParts + 1) + ".split"));
+			BufferedOutputStream bufferedOutput = new BufferedOutputStream(new FileOutputStream(
+					this.outPath + File.separator + file.getName() + "." + (howManyParts + 1) + ".split"));
 			bufferedPartitionLog.write(file.getName() + "." + (howManyParts + 1) + ".split");
 			bufferedPartitionLog.write(System.lineSeparator());
 

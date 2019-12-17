@@ -9,7 +9,7 @@ import java.io.FileReader;
 /**
  * The Standard FileStitcher Class.
  */
-public class FileStitcherCore {
+public class FileStitcher {
 
 	/** The base output path. */
 	String outPath;
@@ -19,7 +19,7 @@ public class FileStitcherCore {
 	 *
 	 * @param outPath the base output path
 	 */
-	FileStitcherCore(String outPath) {
+	FileStitcher(String outPath) {
 		this.outPath = outPath;
 	}
 
@@ -54,7 +54,7 @@ public class FileStitcherCore {
 		byte[] result = new byte[1000];
 		while ((line = reader.readLine()) != null) {
 			FileInputStream partitionedFileReader = new FileInputStream(
-					file.getAbsoluteFile().getParent() + "\\" + line);
+					file.getAbsoluteFile().getParent() + File.separator + line);
 			while (partitionedFileReader.read(result) != -1) {
 				fileOutputStream.write(result);
 			}

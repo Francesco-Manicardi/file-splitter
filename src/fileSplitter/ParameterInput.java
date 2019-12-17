@@ -45,18 +45,18 @@ public class ParameterInput extends JPanel {
 	}
 
 	/**
-	 * Update the input label based on a chosen split mode.
+	 * Update the input label based on the chosen split mode.
 	 */
 	public void updateLabel() {
 		SplitModalityEnum selectedSplitModality = Enum.valueOf(SplitModalityEnum.class,
-				this.controller.splitModalityChooser.selected);
+				this.controller.splitModalityChooser.getSelected());
 
-		label.setText(selectedSplitModality.hint);
+		label.setText(selectedSplitModality.getHint());
 
 	}
 
 	/**
-	 * Get the input value.
+	 * Get the input value or 1 as default.
 	 *
 	 * @return the input value
 	 */

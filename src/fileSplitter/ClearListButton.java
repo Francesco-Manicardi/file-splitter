@@ -29,7 +29,8 @@ public class ClearListButton extends JButton implements ActionListener {
 	}
 
 	/**
-	 * Action performed function that gets called when the button is clicked.
+	 * Action performed function that gets called when the button is clicked: simply
+	 * calls the empty function on the file manager instance.
 	 *
 	 * @param e the action event. Currently unused.
 	 */

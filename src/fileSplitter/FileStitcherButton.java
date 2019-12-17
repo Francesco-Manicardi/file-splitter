@@ -10,15 +10,19 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- * The FileStitcherButton Class.
+ * The button that, when pressed, causes a log file to be read and a file to be
+ * stitched up based on the information in the log file. The log file has a
+ * .partitioninfo extension.
  */
 public class FileStitcherButton extends JButton implements ActionListener {
 
 	/** The originating controller. */
 	private Controller controller;
 
-	/** The file stitcher or any of its descendants (classes that extend it). */
-	private FileStitcherCore fileStitcherCore;
+	/**
+	 * The core file stitcher or any of its descendants (classes that extend it).
+	 */
+	private FileStitcher fileStitcherCore;
 
 	/**
 	 * Instantiates a new file stitcher button.
@@ -34,8 +38,9 @@ public class FileStitcherButton extends JButton implements ActionListener {
 	}
 
 	/**
-	 * Event handler called on click of the button. Stitches the files and prints
-	 * any exceptions to the user in a message box.
+	 * Event handler called on click of the button. Stitches the files with the
+	 * correct file stitcher class and prints any exceptions raised during the
+	 * stitching process to the user in a message box.
 	 *
 	 * @param e the event. Currently unused.
 	 */
@@ -45,9 +50,6 @@ public class FileStitcherButton extends JButton implements ActionListener {
 
 		try {
 			for (File file : this.controller.fileManagerButton.files) {
-
-				this.fileStitcherCore = new FileStitcherCore(this.controller.outputDirChooser.chosenDir.getPath());
-
 				String storedStitchModality = "";
 
 				BufferedReader reader = new BufferedReader(new FileReader(file.getPath()));
@@ -56,11 +58,13 @@ public class FileStitcherButton extends JButton implements ActionListener {
 
 				SplitModalityEnum splitModality = SplitModalityEnum.valueOf(storedStitchModality);
 
-				this.fileStitcherCore = splitModality.stitcherClass.getDeclaredConstructor(String.class)
-						.newInstance(this.controller.outputDirChooser.chosenDir.getPath());
+				this.fileStitcherCore = splitModality.getStitcherClass().getDeclaredConstructor(String.class)
+						.newInstance(this.controller.outputDirChooser.getChosenDir().getPath());
 
 				this.fileStitcherCore.stitchFile(file);
 				reader.close();
+				JOptionPane.showMessageDialog(null, "Files Ricomposti!");
+
 			}
 
 		} catch (Exception exception) {

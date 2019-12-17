@@ -16,8 +16,10 @@ public class FileSplitterButton extends JButton implements ActionListener {
 	/** The originating controller. */
 	private Controller controller;
 
-	/** The file splitter core. */
-	private FileSplitterCore fileSplitterCore;
+	/**
+	 * The file splitter. Can be any subclass (crypt, compress...) via polymorphism
+	 */
+	private FileSplitterCore fileSplitter;
 
 	/**
 	 * Instantiates a new file splitter button.
@@ -34,8 +36,8 @@ public class FileSplitterButton extends JButton implements ActionListener {
 
 	/**
 	 * Handles the click on the button. Instantiates the correct file splitter based
-	 * on the user selection of mode. Also catches any exceptions and displays them
-	 * in a message box to the user.
+	 * on the user selection of mode. Also catches any exceptions during split
+	 * process and displays them in a message box to the user.
 	 * 
 	 *
 	 * @param e the event. Currently unused.
@@ -44,15 +46,17 @@ public class FileSplitterButton extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		try {
-			String selectedSplitModality = this.controller.splitModalityChooser.selected;
+			String selectedSplitModality = this.controller.splitModalityChooser.getSelected();
 
 			SplitModalityEnum splitModality = SplitModalityEnum.valueOf(selectedSplitModality);
 
-			this.fileSplitterCore = splitModality.splitterClass.getDeclaredConstructor(String.class, int.class)
-					.newInstance(this.controller.outputDirChooser.chosenDir.getPath(),
-							this.controller.parameterInput.getInputValue());
+			this.fileSplitter = splitModality.getSplitterClass().getDeclaredConstructor(String.class, int.class).newInstance(
+					this.controller.outputDirChooser.getChosenDir().getPath(),
+					this.controller.parameterInput.getInputValue());
 
-			this.fileSplitterCore.splitFiles(this.controller.fileManagerButton.files);
+			this.fileSplitter.splitFiles(this.controller.fileManagerButton.files);
+			JOptionPane.showMessageDialog(null, "Files Divisi!");
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			JOptionPane.showMessageDialog(null, exception.getMessage());

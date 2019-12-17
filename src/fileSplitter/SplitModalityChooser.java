@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 /**
- * A flexible and dynamic chooser of split modes, using radio buttons.
+ * A dynamic chooser of split modes, using radio buttons.
  */
 public class SplitModalityChooser extends JPanel {
 
@@ -19,7 +19,7 @@ public class SplitModalityChooser extends JPanel {
 	private ButtonGroup splitModalities;
 
 	/** The selected split mode description. */
-	protected String selected;
+	private String selected;
 
 	/**
 	 * Instantiates a new split modality chooser by creating a radio button for each
@@ -39,7 +39,7 @@ public class SplitModalityChooser extends JPanel {
 
 		for (SplitModalityEnum splitModality : SplitModalityEnum.values()) {
 
-			JRadioButton tmp = new JRadioButton(splitModality.description);
+			JRadioButton tmp = new JRadioButton(splitModality.getDescription());
 
 			tmp.setActionCommand(splitModality.name());
 			tmp.addActionListener(e -> {
@@ -68,6 +68,15 @@ public class SplitModalityChooser extends JPanel {
 		if (this.controller.parameterInput != null)
 			this.controller.parameterInput.updateLabel();
 
+	}
+
+	/**
+	 * A simple getter
+	 * 
+	 * @return the selected split mode description
+	 */
+	public String getSelected() {
+		return selected;
 	}
 
 }

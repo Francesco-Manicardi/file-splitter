@@ -71,7 +71,6 @@ public class FileSplitterCompressed extends FileSplitterCore {
 			}
 
 			zipOutputStream.closeEntry();
-
 		}
 
 		if (leftOverBytes > 0) {

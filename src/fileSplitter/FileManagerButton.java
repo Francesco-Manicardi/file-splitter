@@ -41,7 +41,8 @@ public class FileManagerButton extends JButton implements ActionListener {
 	}
 
 	/**
-	 * Handles the click on the button.
+	 * Handles the click on the button by opening up a JFileChooser with multiple
+	 * selection enabled.
 	 *
 	 * @param e The event. Currently unused.
 	 */

@@ -14,7 +14,10 @@ public class FileSplitterCore {
 	/** The output path for the split parts. */
 	String outPath;
 
-	/** The input param (in this case, it's the number of requested parts). */
+	/**
+	 * The input param (in the standard case, it's the number of requested parts).
+	 * Can be unused by subclasses.
+	 */
 	int inputParam;
 
 	/**

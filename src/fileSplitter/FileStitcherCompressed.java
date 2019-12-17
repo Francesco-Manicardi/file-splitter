@@ -11,7 +11,7 @@ import java.util.zip.ZipInputStream;
 /**
  * The File Stitcher For Compressed Files.
  */
-public class FileStitcherCompressed extends FileStitcherCore {
+public class FileStitcherCompressed extends FileStitcher {
 
 	/**
 	 * Instantiates a new file stitcher for compressed parts.
@@ -49,7 +49,7 @@ public class FileStitcherCompressed extends FileStitcherCore {
 		System.out.printf("Tipo Partizione:%s \n", partitionType);
 		String zipFilePath = reader.readLine();
 
-		FileInputStream fin = new FileInputStream(file.getAbsoluteFile().getParent() + "\\" + zipFilePath);
+		FileInputStream fin = new FileInputStream(file.getAbsoluteFile().getParent() + File.separator + zipFilePath);
 		ZipInputStream zin = new ZipInputStream(fin);
 		FileOutputStream fout = new FileOutputStream(getOutputPath(file));
 

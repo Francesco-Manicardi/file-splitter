@@ -3,10 +3,10 @@ package fileSplitter;
 import java.io.File;
 
 /**
- * The Class FileSplitterByDimension. Simply provides an interface to the "core"
- * file splitter. The core file splitter uses the number of parts as a
- * parameter, here we calculate the number of parts by dividing file lenght by
- * part dimension.
+ * The Class FileSplitterByDimension. Acts as a proxy to the "core" file
+ * splitter. The core file splitter uses the number of parts as a parameter,
+ * here we calculate the number of parts by dividing file lenght by part
+ * dimension.
  */
 public class FileSplitterByDimension extends FileSplitterCore {
 
@@ -23,7 +23,8 @@ public class FileSplitterByDimension extends FileSplitterCore {
 	}
 
 	/**
-	 * Split the file.
+	 * Split the file. Calls the parent splitter because this subclass doesn't do
+	 * any special task (compress/crypt)
 	 *
 	 * @param file                the file to split
 	 * @param dimensionOfEachPart the dimension of each split part
