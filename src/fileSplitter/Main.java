@@ -2,6 +2,8 @@ package fileSplitter;
 
 import java.awt.EventQueue;
 
+import view.Window;
+
 /**
  * The Main Class. Creates a window and a controller attached to it.
  */
@@ -18,7 +20,7 @@ public class Main {
 			public void run() {
 				try {
 					Window window = new Window();
-					window.frame.setVisible(true);
+					window.getFrame().setVisible(true);
 					Controller controller = new Controller(window);
 				} catch (Exception e) {
 					e.printStackTrace();

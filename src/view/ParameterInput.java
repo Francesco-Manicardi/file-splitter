@@ -1,4 +1,4 @@
-package fileSplitter;
+package view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.PlainDocument;
+
+import fileSplitter.Controller;
+import fileSplitter.SplitModalityEnum;
 
 /**
  * The Parameter Input Text Field. We use it filtered by OnlyPositiveIntegers.
@@ -49,7 +52,7 @@ public class ParameterInput extends JPanel {
 	 */
 	public void updateLabel() {
 		SplitModalityEnum selectedSplitModality = Enum.valueOf(SplitModalityEnum.class,
-				this.controller.splitModalityChooser.getSelected());
+				this.controller.getSplitModalityChooser().getSelected());
 
 		label.setText(selectedSplitModality.getHint());
 

@@ -1,4 +1,4 @@
-package fileSplitter;
+package splitters;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -11,6 +11,8 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+
+import fileSplitter.SplitModalityEnum;
 
 /**
  * This class splits files and crypts them using AES algorithm with padding and

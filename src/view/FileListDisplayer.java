@@ -1,4 +1,4 @@
-package fileSplitter;
+package view;
 
 import java.io.File;
 
@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import fileSplitter.Controller;
 
 /**
  * The Class FileListDisplayer displays the chosen files in a scrollable list.

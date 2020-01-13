@@ -1,4 +1,4 @@
-package fileSplitter;
+package splitters;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import fileSplitter.SplitModalityEnum;
 
 /**
  * The File Splitter that also compresses the split parts.
@@ -19,7 +21,7 @@ public class FileSplitterCompressed extends FileSplitterCore {
 	 * @param r Originally this was the superclass requested amount of parts, but
 	 *          here this parameter is used as the size of each split part file.
 	 */
-	FileSplitterCompressed(String o, int r) {
+	public FileSplitterCompressed(String o, int r) {
 		super(o, r);
 	}
 
@@ -62,11 +64,12 @@ public class FileSplitterCompressed extends FileSplitterCore {
 			System.out.printf("\t Writing partition %s\n", outputPath);
 
 			zipOutputStream.putNextEntry(new ZipEntry(file.getName() + "." + part + ".split"));
-			byte readByte;
-			for (int numberOfReadBytes = 0; numberOfReadBytes < bytesPerPart; numberOfReadBytes++) {
+			int dim = 160;
+			byte[] readBytes = new byte[dim];
+			for (int numberOfReadBytes = 0; numberOfReadBytes < bytesPerPart; numberOfReadBytes += dim) {
 
-				readByte = (byte) fileInputStream.read();
-				zipOutputStream.write(readByte);
+				fileInputStream.read(readBytes);
+				zipOutputStream.write(readBytes);
 
 			}
 

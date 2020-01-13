@@ -1,10 +1,14 @@
-package fileSplitter;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+import fileSplitter.Controller;
+import fileSplitter.SplitModalityEnum;
+import splitters.FileSplitterCore;
 
 /**
  * The Class FileSplitterButton. It's the interface to the underlying splitting
@@ -46,13 +50,13 @@ public class FileSplitterButton extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		try {
-			String selectedSplitModality = this.controller.splitModalityChooser.getSelected();
+			String selectedSplitModality = this.controller.getSplitModalityChooser().getSelected();
 
 			SplitModalityEnum splitModality = SplitModalityEnum.valueOf(selectedSplitModality);
 
 			this.fileSplitter = splitModality.getSplitterClass().getDeclaredConstructor(String.class, int.class).newInstance(
-					this.controller.outputDirChooser.getChosenDir().getPath(),
-					this.controller.parameterInput.getInputValue());
+					this.controller.getOutputDirChooser().getChosenDir().getPath(),
+					this.controller.getParameterInput().getInputValue());
 
 			this.fileSplitter.splitFiles(this.controller.fileManagerButton.files);
 			JOptionPane.showMessageDialog(null, "Files Divisi!");

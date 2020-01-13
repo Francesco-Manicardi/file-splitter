@@ -1,4 +1,4 @@
-package fileSplitter;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,10 @@ import java.io.FileReader;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+import fileSplitter.Controller;
+import fileSplitter.SplitModalityEnum;
+import stitchers.FileStitcher;
 
 /**
  * The button that, when pressed, causes a log file to be read and a file to be
@@ -59,11 +63,10 @@ public class FileStitcherButton extends JButton implements ActionListener {
 				SplitModalityEnum splitModality = SplitModalityEnum.valueOf(storedStitchModality);
 
 				this.fileStitcherCore = splitModality.getStitcherClass().getDeclaredConstructor(String.class)
-						.newInstance(this.controller.outputDirChooser.getChosenDir().getPath());
+						.newInstance(this.controller.getOutputDirChooser().getChosenDir().getPath());
 
 				this.fileStitcherCore.stitchFile(file);
 				reader.close();
-				JOptionPane.showMessageDialog(null, "Files Ricomposti!");
 
 			}
 
@@ -71,6 +74,8 @@ public class FileStitcherButton extends JButton implements ActionListener {
 			exception.printStackTrace();
 			JOptionPane.showMessageDialog(null, exception.getMessage());
 		}
+
+		JOptionPane.showMessageDialog(null, "Files Ricomposti!");
 	}
 
 }

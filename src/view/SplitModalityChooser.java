@@ -1,4 +1,4 @@
-package fileSplitter;
+package view;
 
 import java.awt.event.ActionEvent;
 
@@ -6,6 +6,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import fileSplitter.Controller;
+import fileSplitter.SplitModalityEnum;
 
 /**
  * A dynamic chooser of split modes, using radio buttons.
@@ -65,8 +68,8 @@ public class SplitModalityChooser extends JPanel {
 	 */
 	private void setSelected(ActionEvent e) {
 		this.selected = e.getActionCommand();
-		if (this.controller.parameterInput != null)
-			this.controller.parameterInput.updateLabel();
+		if (this.controller.getParameterInput() != null)
+			this.controller.getParameterInput().updateLabel();
 
 	}
 

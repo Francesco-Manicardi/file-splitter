@@ -1,4 +1,4 @@
-package fileSplitter;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +35,7 @@ public class OutputDirChooser extends JPanel implements ActionListener {
 	 * Instantiates a new output directory chooser by creating the title label, the
 	 * button and the output label and adding the actionlistener for the click.
 	 */
-	OutputDirChooser() {
+	public OutputDirChooser() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		output = new JLabel();
 		title = new JLabel("Scegli La Cartella Di Output");

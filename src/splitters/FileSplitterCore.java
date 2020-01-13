@@ -1,9 +1,11 @@
-package fileSplitter;
+package splitters;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+
+import fileSplitter.SplitModalityEnum;
 
 /**
  * The Main FileSplitter class from which all others descend (meaning they
@@ -28,7 +30,7 @@ public class FileSplitterCore {
 	 *                       different from the actual amount of parts</b> (because
 	 *                       there could be some leftover bytes)
 	 */
-	FileSplitterCore(String outPath, int requestedParts) {
+	public FileSplitterCore(String outPath, int requestedParts) {
 		this.outPath = outPath;
 		this.inputParam = requestedParts;
 	}
@@ -39,7 +41,7 @@ public class FileSplitterCore {
 	 * @param files the files to be split
 	 * @throws Exception when the files array is empty.
 	 */
-	void splitFiles(File[] files) throws Exception {
+	public void splitFiles(File[] files) throws Exception {
 		if (files == null || files.length == 0)
 			throw new Exception("Lista Vuota!");
 
@@ -82,12 +84,12 @@ public class FileSplitterCore {
 			bufferedPartitionLog.write(System.lineSeparator());
 
 			FileOutputStream fileOutputStream = new FileOutputStream(outputPath);
+			int dim = 160;
+			byte[] readBytes = new byte[dim];
+			for (int numberOfReadBytes = 0; numberOfReadBytes < bytesPerPart; numberOfReadBytes += dim) {
 
-			byte readByte;
-			for (int numberOfReadBytes = 0; numberOfReadBytes < bytesPerPart; numberOfReadBytes++) {
-
-				readByte = (byte) fileInputStream.read();
-				fileOutputStream.write(readByte);
+				fileInputStream.read(readBytes);
+				fileOutputStream.write(readBytes);
 
 			}
 

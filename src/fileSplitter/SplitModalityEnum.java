@@ -2,6 +2,14 @@ package fileSplitter;
 
 import java.util.Arrays;
 
+import splitters.FileSplitterByDimension;
+import splitters.FileSplitterCompressed;
+import splitters.FileSplitterCore;
+import splitters.FileSplitterCrypto;
+import stitchers.FileStitcher;
+import stitchers.FileStitcherCompressed;
+import stitchers.FileStitcherCrypto;
+
 /**
  * An enum containing the split modalities and the appropriate splitter and
  * stitcher for each one of them. Also allows to search one of them by the

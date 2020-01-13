@@ -1,9 +1,11 @@
-package fileSplitter;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+
+import fileSplitter.Controller;
 
 /**
  * The Class ClearListButton is a simple button that deletes all the files in

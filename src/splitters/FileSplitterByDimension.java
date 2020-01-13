@@ -1,4 +1,4 @@
-package fileSplitter;
+package splitters;
 
 import java.io.File;
 

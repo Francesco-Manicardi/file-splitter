@@ -1,4 +1,4 @@
-package fileSplitter;
+package stitchers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,7 +34,7 @@ public class FileStitcherCrypto extends FileStitcher {
 	 * @throws Exception when file is empty or when something goes wrong during IO.
 	 */
 	@Override
-	void stitchFile(File file) throws Exception {
+	public void stitchFile(File file) throws Exception {
 		System.out.printf("Stitching with control file %s\n", file.getPath());
 
 		if (file.length() == 0) {

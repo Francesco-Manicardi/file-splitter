@@ -6,6 +6,16 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.border.EmptyBorder;
 
+import view.ClearListButton;
+import view.FileListDisplayer;
+import view.FileManagerButton;
+import view.FileSplitterButton;
+import view.FileStitcherButton;
+import view.OutputDirChooser;
+import view.ParameterInput;
+import view.SplitModalityChooser;
+import view.Window;
+
 /**
  * The Controller Class where all the GUI gets built.
  */
@@ -21,7 +31,7 @@ public class Controller {
 	 * A button that, when pressed, prompts the user to choose some files to
 	 * split/stitch.
 	 */
-	FileManagerButton fileManagerButton;
+	public FileManagerButton fileManagerButton;
 
 	/** The button that clears the chosen files list. */
 	ClearListButton clearListButton;
@@ -33,19 +43,19 @@ public class Controller {
 	FileStitcherButton fileStitcherButton;
 
 	/** The file list displayer. Displays the chosen files in a scrollable list. */
-	FileListDisplayer fileListDisplayer;
+	public FileListDisplayer fileListDisplayer;
 
 	/** The split modality chooser. You can choose between 4 different modes. */
-	SplitModalityChooser splitModalityChooser;
+	private SplitModalityChooser splitModalityChooser;
 
 	/** The parameter input. It is used when splitting files as a parameter. */
-	ParameterInput parameterInput;
+	private ParameterInput parameterInput;
 
 	/**
 	 * The output dir chooser. With this component you can choose where the output
 	 * of the stitching and splitting will end up.
 	 */
-	OutputDirChooser outputDirChooser;
+	private OutputDirChooser outputDirChooser;
 
 	/** The left and right views of the split panel. */
 	JPanel leftView, rightView;
@@ -70,8 +80,8 @@ public class Controller {
 		clearListButton = new ClearListButton(this);
 		fileSplitterButton = new FileSplitterButton(this);
 		fileStitcherButton = new FileStitcherButton(this);
-		splitModalityChooser = new SplitModalityChooser(this);
-		parameterInput = new ParameterInput(this);
+		setSplitModalityChooser(new SplitModalityChooser(this));
+		setParameterInput(new ParameterInput(this));
 
 		/* And add them to the left view. */
 		leftView.add(fileManagerButton);
@@ -82,9 +92,9 @@ public class Controller {
 		leftView.add(Box.createVerticalStrut(20));
 		leftView.add(fileStitcherButton);
 		leftView.add(Box.createVerticalStrut(20));
-		leftView.add(splitModalityChooser);
+		leftView.add(getSplitModalityChooser());
 		leftView.add(Box.createVerticalStrut(20));
-		leftView.add(parameterInput);
+		leftView.add(getParameterInput());
 		leftView.add(Box.createVerticalStrut(20));
 
 		splitPane.setLeftComponent(leftView);
@@ -94,15 +104,57 @@ public class Controller {
 		fileListDisplayer = new FileListDisplayer(this);
 		rightView.add(fileListDisplayer);
 
-		outputDirChooser = new OutputDirChooser();
-		rightView.add(outputDirChooser);
+		setOutputDirChooser(new OutputDirChooser());
+		rightView.add(getOutputDirChooser());
 
 		splitPane.setRightComponent(rightView);
 
 		splitPane.setResizeWeight(0.5);
 		/* Add the split pane to the main window. */
-		window.frame.add(splitPane);
+		window.getFrame().add(splitPane);
 
+	}
+
+	/**
+	 * @return the outputDirChooser
+	 */
+	public OutputDirChooser getOutputDirChooser() {
+		return outputDirChooser;
+	}
+
+	/**
+	 * @param outputDirChooser the outputDirChooser to set
+	 */
+	public void setOutputDirChooser(OutputDirChooser outputDirChooser) {
+		this.outputDirChooser = outputDirChooser;
+	}
+
+	/**
+	 * @return the parameterInput
+	 */
+	public ParameterInput getParameterInput() {
+		return parameterInput;
+	}
+
+	/**
+	 * @param parameterInput the parameterInput to set
+	 */
+	public void setParameterInput(ParameterInput parameterInput) {
+		this.parameterInput = parameterInput;
+	}
+
+	/**
+	 * @return the splitModalityChooser
+	 */
+	public SplitModalityChooser getSplitModalityChooser() {
+		return splitModalityChooser;
+	}
+
+	/**
+	 * @param splitModalityChooser the splitModalityChooser to set
+	 */
+	public void setSplitModalityChooser(SplitModalityChooser splitModalityChooser) {
+		this.splitModalityChooser = splitModalityChooser;
 	}
 
 }

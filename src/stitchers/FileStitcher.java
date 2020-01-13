@@ -1,4 +1,4 @@
-package fileSplitter;
+package stitchers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +19,7 @@ public class FileStitcher {
 	 *
 	 * @param outPath the base output path
 	 */
-	FileStitcher(String outPath) {
+	public FileStitcher(String outPath) {
 		this.outPath = outPath;
 	}
 
@@ -29,7 +29,7 @@ public class FileStitcher {
 	 * @param file the control file for the stitching process.
 	 * @throws Exception when the file is empty or something goes wrong during IO.
 	 */
-	void stitchFile(File file) throws Exception {
+	public void stitchFile(File file) throws Exception {
 		System.out.printf("Stitching with control file %s\n", file.getPath());
 
 		if (file.length() == 0) {
